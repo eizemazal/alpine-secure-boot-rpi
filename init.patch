@@ -1,0 +1,26 @@
+715a716,726
+> # added for RPi secure boot
+> mkdir /tmp/boot
+> sleep 3
+> mount /dev/mmcblk0p1 /tmp/boot -t vfat
+> cp /tmp/boot/boot.img /tmp/boot.img
+> umount /tmp/boot
+> mkdir /media/boot
+> mount /tmp/boot.img /media/boot
+> echo /media/boot/`ls /media/boot/ | grep apkovl` > "$ROOT"/tmp/apkovls
+> 
+> # original code commented out
+717,722c728,733
+< ebegin "Mounting boot media"
+< $MOCK nlplug-findfs $cryptopts -p /sbin/mdev ${KOPT_debug_init:+-d} \
+< 	${KOPT_usbdelay:+-t $(( $KOPT_usbdelay * 1000 ))} \
+< 	${KOPT_uevent_buf_size:+-U $KOPT_uevent_buf_size} \
+< 	$repoopts -a "$ROOT"/tmp/apkovls
+< eend $?
+---
+> # ebegin "Mounting boot media"
+> # $MOCK nlplug-findfs $cryptopts -p /sbin/mdev ${KOPT_debug_init:+-d} \
+> # 	${KOPT_usbdelay:+-t $(( $KOPT_usbdelay * 1000 ))} \
+> # 	${KOPT_uevent_buf_size:+-U $KOPT_uevent_buf_size} \
+> # 	$repoopts -a "$ROOT"/tmp/apkovls
+> # eend $?
